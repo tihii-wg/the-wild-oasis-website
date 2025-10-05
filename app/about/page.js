@@ -37,6 +37,8 @@ export default function Page() {
       <div className="col-span-2">
         <Image
           src={about1}
+          quality={80}
+          placeholder="blur"
           alt="Family sitting around a fire pit in front of cabin"
         />
       </div>
