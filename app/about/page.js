@@ -6,13 +6,13 @@ export const metadata = {
 };
 export default function Page() {
   return (
-    <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
-      <div className="col-span-3">
+    <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center ">
+      <div className="col-span-3 ">
         <h1 className="text-4xl mb-10 text-accent-400 font-medium">
           Welcome to The Wild Oasis
         </h1>
 
-        <div className="space-y-8">
+        <div className="space-y-8 ">
           <p>
             Where nature's beauty and comfortable living blend seamlessly.
             Hidden away in the heart of the Italian Dolomites, this is your
@@ -43,7 +43,7 @@ export default function Page() {
         />
       </div>
 
-      <div className=" relative aspect-square col-span-2">
+      <div className=" relative aspect-square col-span-2 ">
         <Image
           src="/about-2.jpg"
           fill
