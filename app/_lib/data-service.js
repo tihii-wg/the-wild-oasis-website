@@ -17,7 +17,7 @@ export async function getCabin(id) {
 
   if (error) {
     console.error(error);
-    notFound()
+    notFound();
   }
 
   return data;
@@ -105,7 +105,7 @@ export async function getBookedDatesByCabinId(cabinId) {
   const { data, error } = await supabase
     .from("bookings")
     .select("*")
-    .eq("cabinId", cabinId)
+    .eq("id", cabinId)
     .or(`startDate.gte.${today},status.eq.checked-in`);
 
   if (error) {
@@ -127,7 +127,10 @@ export async function getBookedDatesByCabinId(cabinId) {
 }
 
 export async function getSettings() {
-  const { data, error } = await supabase.from("settings").select("*").single();
+  const { data, error } = await supabase.from("Settings").select("*");
+
+  // await new Promise((res) => setTimeout(res, 1000));
+
 
   if (error) {
     console.error(error);
