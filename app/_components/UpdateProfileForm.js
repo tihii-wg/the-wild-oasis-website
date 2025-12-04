@@ -60,4 +60,3 @@ export default function UpdateProfileForm({ guest, children }) {
     </form>
   );
 }
-

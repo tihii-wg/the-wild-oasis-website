@@ -29,6 +29,8 @@ export async function updateProfileForm(formData) {
 }
 
 export async function deleteBooking(bookingId) {
+  await new Promise((res) => setTimeout(res, 2000))
+  
   const session = await auth();
   if (!session) throw new Error("Need to be autoriser user");
 
