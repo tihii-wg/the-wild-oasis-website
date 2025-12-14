@@ -27,8 +27,8 @@ export default function RootLayout({ children }) {
       >
         <Header />
 
-        <div className="flex-1  grid   px-8 py-12">
-          <main className="  mx-auto  w-full ">
+        <div className="flex-1  grid   px-20 py-12">
+          <main className="  mx-auto  w-[80%] ">
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>
