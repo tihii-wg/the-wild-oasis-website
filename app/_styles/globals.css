@@ -38,6 +38,41 @@
   margin: 0 !important;
 }
 
+.rdp-range_start .rdp-day_button {
+  background-color: theme("colors.accent.500");
+}
+.rdp-range_end .rdp-day_button {
+  background-color: theme("colors.accent.500");
+}
+.rdp-day_button:hover {
+  background: theme("colors.accent.500");
+}
+
+.rdp-range_middle {
+  background-color: theme("colors.accent.500");
+}
+.rdp-selected .rdp-day_button {
+  border: 2px solid theme("colors.accent.500");
+}
+
+.rdp-range_start {
+  background: linear-gradient(
+    to left,
+    theme("colors.accent.500") 50%,
+    transparent 50%
+  );
+}
+
+.rdp-range_end {
+  background: linear-gradient(
+    to right,
+    theme("colors.accent.500") 50%,
+    transparent 50%
+  );
+}
+
+
+
 /* .background-image {
   background-image: url("../../public/bg.png");
   background-size: cover;

@@ -3,8 +3,9 @@ import Reservation from "@/app/_components/Reservation";
 import { getCabin, getCabins } from "@/app/_lib/data-service";
 
 import { Suspense } from "react";
-import Loading from "@/app/loading";
+// import Loading from "@/app/loading";
 import Cabin from "@/app/_components/Cabin";
+import Loading from "./loading";
 
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params.cabinId);
@@ -21,12 +22,11 @@ export async function generateStaticParams() {
 
   return ids;
 }
-
 export default async function Page({ params }) {
   const cabin = await getCabin(params.cabinId);
 
   return (
-    <div className="max-w-6xl mx-auto mt-8">
+    <div className="max-w-[1400px] mx-auto mt-8">
       <Cabin cabin={cabin} />
 
       <div>
@@ -35,7 +35,7 @@ export default async function Page({ params }) {
         </h2>
 
         <Suspense fallback={<Loading />}>
-          <Reservation cabin={cabin} params={params} />
+          <Reservation cabin={cabin}  />
         </Suspense>
       </div>
     </div>

@@ -28,9 +28,37 @@ export async function updateProfileForm(formData) {
   revalidatePath("/account/profile");
 }
 
+export async function createBooking(bookingData, formData) {
+  const session = await auth();
+  if (!session) throw new Error("Need to be autoriser user");
+
+  const newBooking = {
+    ...bookingData,
+    guestId: session.user.guestId,
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations"),
+    extrasPrice: 0,
+    totalPrice: bookingData.cabinPrice,
+    isPaid: false,
+    hasBreakfast: false,
+    status: "unconfirmed",
+  };
+
+  const { error } = await supabase
+    .from("bookings")
+    .insert([newBooking])
+    .select();
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath(`/cabins/${bookingData.cabinId}`);
+
+  redirect("/cabins/thankyou");
+}
+
 export async function deleteBooking(bookingId) {
-  await new Promise((res) => setTimeout(res, 2000))
-  
+  await new Promise((res) => setTimeout(res, 2000));
+
   const session = await auth();
   if (!session) throw new Error("Need to be autoriser user");
 

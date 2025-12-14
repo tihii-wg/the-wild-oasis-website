@@ -1,49 +1,59 @@
 "use client";
 
-import { isWithinInterval } from "date-fns";
-import { useState } from "react";
-import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import "@/app/_styles/globals.css";
+
+import {
+  differenceInDays,
+  isPast,
+  isSameDay,
+  isWithinInterval,
+} from "date-fns";
+import { DayPicker } from "react-day-picker";
 import { useReservation } from "./ReservationContext";
 
 function isAlreadyBooked(range, datesArr) {
   return (
-    range.from &&
-    range.to &&
+    range?.from &&
+    range?.to &&
     datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from, end: range.to })
+      isWithinInterval(date, { start: range?.from, end: range?.to })
     )
   );
 }
 
 function DateSelector({ settings, cabin, bookedDates }) {
-  const { range, setRange ,resetRange} = useReservation();
-  const { regularPrice, discount } = cabin;
+  const { range, setRange, resetRange } = useReservation();
+  const { regularPrice, discount, id } = cabin;
   // CHANGE
-  // const regularPrice = 23;
-  // const discount = 23;
-  const numNights = 23;
-  const cabinPrice = regularPrice - discount;
+  console.log(bookedDates);
+  const displayRange = isAlreadyBooked(range, bookedDates) ? {} : range;
 
+  const numNights = differenceInDays(displayRange?.to, displayRange?.from);
+  const cabinPrice = numNights * (regularPrice - discount);
   // SETTINGS
   const { minBookingLength, maxBookingLength } = settings;
 
   return (
     <div className="flex flex-col justify-between">
-      <DayPicker
-        className="pt-12 place-self-center "
-        mode="range"
-        min={minBookingLength + 1}
-        max={maxBookingLength}
-        startMonth={new Date()}
-        hidden={new Date()}
-        endMonth={new Date(2030, 11)}
-        captionLayout="dropdown"
-        onSelect={setRange}
-        selected={range}
-        resetRange
-        // numberOfMonths={2}
-      />
+      <div className=" flex justify-center w-full min-w=[650px]">
+        <DayPicker
+          className="pt-12 place-self-center"
+          mode="range"
+          onSelect={setRange}
+          selected={displayRange}
+          min={minBookingLength + 1}
+          max={maxBookingLength}
+          startMonth={new Date()}
+          endMonth={new Date(2030, 11)}
+          captionLayout="dropdown"
+          numberOfMonths={2}
+          disabled={(currDay) =>
+            isPast(currDay) ||
+            bookedDates.some((date) => isSameDay(date, currDay))
+          }
+        />
+      </div>
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
         <div className="flex items-baseline gap-6">
